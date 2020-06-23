@@ -80,7 +80,9 @@ impl AddRegReg {
             asm_name: "add".to_string(),
         }
     }
+}
 
+impl Instruction for AddRegReg {
     #[allow(dead_code)]
     fn get_security_context() -> SecurityContext {
         SecurityContext::User
@@ -93,6 +95,6 @@ impl AddRegReg {
 
     #[allow(dead_code, unused_variables)]
     fn to_string(&self, data: InstructionData) -> String {
-        format!("{}", self.asm_name)
+        format!("{} foo bar", self.asm_name)
     }
 }
