@@ -1,0 +1,15 @@
+[package]
+name = "oxidation-console"
+version = "0.1.0"
+authors = ["Ryan Jones-Ward <sciguyryan@gmail.com>"]
+edition = "2018"
+readme = "README.md"
+description = "A CLI frontend for oxidation-core"
+license = "MIT"
+repository = "https://github.com/sciguyryan/oxidation"
+homepage = "https://github.com/sciguyryan/oxidation"
+
+[dependencies]
+oxidation-core = { path = "../oxidation-core" }
+log = "0.4"
+simple_logger = "1.6.0"

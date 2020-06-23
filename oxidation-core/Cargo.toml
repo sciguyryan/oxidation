@@ -1,0 +1,16 @@
+[package]
+name = "oxidation-core"
+version = "0.1.0"
+authors = ["Ryan Jones-Ward <sciguyryan@gmail.com>"]
+edition = "2018"
+readme = "README.md"
+description = "The core of Oxidation, a Rust virtual machine"
+license = "MIT"
+repository = "https://github.com/sciguyryan/oxidation"
+homepage = "https://github.com/sciguyryan/oxidation"
+
+[dependencies]
+log = "0.4"
+simple_logger = "1.6.0"
+bitflags = "1.2.1"
+snafu = "0.6.8"

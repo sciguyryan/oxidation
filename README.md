@@ -1,2 +1,3 @@
-# Oxidation
-Oxidation - a simple virtual machine written in Rust
+Oxidation
+
+Oxidation - a simple virtual machine written in Rust.
