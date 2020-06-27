@@ -1,3 +1,78 @@
+use crate::registers::Registers;
+use std::fmt;
+
+pub enum ArgumentTypes {
+    /// A 16-bit integer value.
+    Int16,
+    /// A 32-bit integer value.
+    Int32,
+    /// A 64-bit integer value (long).
+    Int64,
+    /// A floating point value.
+    Float,
+    /// A register identifier.
+    Register,
+    /// A string.
+    String,
+    /// An instruction size hint identifier.
+    InstructionSizeHint,
+}
+
+pub enum ArgumentRefTypes {
+    /// <summary>
+    /// The argument is a register identifier.
+    /// </summary>
+    Register,
+    /// <summary>
+    /// The argument is a literal integer.
+    /// </summary>
+    LiteralInteger,
+    /// <summary>
+    /// The argument is a literal float.
+    /// </summary>
+    LiteralFloat,
+    /// <summary>
+    /// The argument is a register pointer.
+    /// </summary>
+    RegisterPointer,
+    /// <summary>
+    /// The argument is a literal pointer.
+    /// </summary>
+    LiteralPointer,
+    /// <summary>
+    /// The argument is a string.
+    /// </summary>
+    String,
+    /// <summary>
+    /// An argument indicating the size of the instruction.
+    /// </summary>
+    InstructionSizeHint,
+}
+
+#[repr(i16)]
+pub enum InstructionSizeHint {
+    /// <summary>
+    /// Instruction data should be of size: 1 byte (4 bits)
+    /// </summary>
+    Byte,
+    /// <summary>
+    /// Instruction data should be of size: 4 bytes (32 bits)
+    /// </summary>
+    Word,
+    /// <summary>
+    /// Instruction data should be of size: 8 bytes (64 bits)
+    /// </summary>
+    DWord,
+}
+
+#[derive(Debug)]
+pub enum Instruction {
+    //Subroutine(i32, String),
+    NOP(),
+    AddLitReg(i32, Registers),
+    HLT(),
+}
+
 #[repr(i16)]
 pub enum OpCode {
     /// <summary>
@@ -312,4 +387,16 @@ pub enum OpCode {
     /// Halt - halt the execution of the virtual machine.
     /// </summary>
     Hlt = 32767,
+}
+
+impl fmt::Display for Instruction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
+            Instruction::NOP() => String::from("nop"),
+            Instruction::AddLitReg(literal, reg) => format!("add {:02X}, {}", literal, reg),
+            Instruction::HLT() => String::from("hlt"),
+            _ => String::from("???"),
+        };
+        write!(f, "{}", printable)
+    }
 }
