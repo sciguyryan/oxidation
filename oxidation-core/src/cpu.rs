@@ -1,4 +1,5 @@
-use crate::instructions::Instruction;
+use crate::instructions::enums::Instruction;
+use crate::instructions::implementations as ins_imps;
 use crate::registers::*;
 use crate::security_context::SecurityContext;
 use log::trace;
@@ -34,13 +35,13 @@ pub struct CPU {
 
 impl RegisterCollection {
     pub fn new() -> Self {
-        let mut r = Self {
+        let mut rc = Self {
             registers: Vec::new(),
         };
 
-        r.initialize_registers();
+        rc.initialize_registers();
 
-        r
+        rc
     }
 
     pub fn get_register_value_ref(
@@ -156,7 +157,7 @@ impl CPU {
     /// Initialize the CPU.
     pub fn initialize(&mut self) {}
 
-    /// Run the CPU until program completion.
+    /// Run the CPU until the program execution is complete.
     pub fn run(&mut self) -> Result<bool> {
         trace!("Currently in cpu::run.");
         ensure!(self.exec_mem_seq_id > -1, MemorySequenceIdNotSet);
@@ -189,12 +190,8 @@ impl CPU {
         println!("Executing: {:?}", ins);
         let halt: Result<bool, CpuError> = match ins {
             Instruction::NOP() => Ok(false),
-            Instruction::AddLitReg(lit, reg) => self.add_lit_reg(lit, reg),
+            Instruction::AddLitReg(lit, reg) => ins_imps::add_lit_reg(self, lit, reg),
             Instruction::HLT() => Ok(true),
-            _ => {
-                println!("Unknown instruction encountered.");
-                Ok(true)
-            }
         };
 
         // In the event of an error we will instruct the CPU
@@ -205,34 +202,5 @@ impl CPU {
         };
 
         halt
-    }
-
-    fn add_lit_reg(&mut self, lit: i32, reg: Registers) -> Result<bool> {
-        let reg = self
-            .registers
-            .get_register_value(reg, SecurityContext::User);
-        match reg {
-            Err(_) => {
-                return Err(CpuError::RegisterAccessViolation);
-            }
-            Ok(val) => {
-                match val {
-                    RegisterValue::I32(int) => {
-                        let res = self.registers.set_register_value(
-                            Registers::AC,
-                            RegisterValue::I32(lit + int),
-                            SecurityContext::User,
-                        );
-
-                        if let Err(e) = res {
-                            return Err(e);
-                        } else {
-                            return Ok(false);
-                        }
-                    }
-                    _ => return Err(CpuError::InvalidRegisterValueType),
-                };
-            }
-        }
     }
 }

@@ -118,7 +118,6 @@ impl fmt::Display for Registers {
             Registers::R8 => "R8",
             Registers::AC => "AC",
             Registers::FL => "FL",
-            _ => "UNKNOWN",
         };
         write!(f, "{}", printable)
     }

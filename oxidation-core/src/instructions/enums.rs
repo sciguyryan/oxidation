@@ -3,13 +3,13 @@ use std::fmt;
 
 pub enum ArgumentTypes {
     /// A 16-bit integer value.
-    Int16,
+    ImmediateInt16,
     /// A 32-bit integer value.
-    Int32,
+    ImmediateInt32,
     /// A 64-bit integer value (long).
-    Int64,
+    ImmediateInt64,
     /// A floating point value.
-    Float,
+    ImmediateFloat,
     /// A register identifier.
     Register,
     /// A string.
@@ -24,21 +24,21 @@ pub enum ArgumentRefTypes {
     /// </summary>
     Register,
     /// <summary>
-    /// The argument is a literal integer.
+    /// The argument is a literal (immediate) integer.
     /// </summary>
-    LiteralInteger,
+    ImmediateInteger,
     /// <summary>
-    /// The argument is a literal float.
+    /// The argument is a literal (immediate) float.
     /// </summary>
-    LiteralFloat,
+    ImmediateFloat,
     /// <summary>
     /// The argument is a register pointer.
     /// </summary>
     RegisterPointer,
     /// <summary>
-    /// The argument is a literal pointer.
+    /// The argument is a literal (immediate) pointer.
     /// </summary>
-    LiteralPointer,
+    ImmediatePointer,
     /// <summary>
     /// The argument is a string.
     /// </summary>
@@ -395,7 +395,6 @@ impl fmt::Display for Instruction {
             Instruction::NOP() => String::from("nop"),
             Instruction::AddLitReg(literal, reg) => format!("add {:02X}, {}", literal, reg),
             Instruction::HLT() => String::from("hlt"),
-            _ => String::from("???"),
         };
         write!(f, "{}", printable)
     }
