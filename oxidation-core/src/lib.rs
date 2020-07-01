@@ -5,8 +5,8 @@
 extern crate bitflags;
 
 pub mod cpu;
+pub mod memory;
 pub mod instructions;
-pub mod macros;
 pub mod registers;
 pub mod security_context;
 pub mod virtual_machine;

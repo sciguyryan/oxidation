@@ -1,13 +1,18 @@
 use crate::cpu::*;
+use crate::memory::*;
 use log::trace;
 
 pub struct VirtualMachine {
     pub cpu: CPU,
+    pub memory: Memory,
 }
 
 impl VirtualMachine {
-    pub fn new() -> Self {
-        let mut v = Self { cpu: CPU::new() };
+    pub fn new(memory_size: u32, stack_capacity: u32, cpu_can_swap_regions: bool) -> Self {
+        let mut v = Self {
+            cpu: CPU::new(),
+            memory: Memory::new(memory_size, stack_capacity),
+        };
         v.initialize();
         v
     }

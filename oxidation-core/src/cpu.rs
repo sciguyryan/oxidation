@@ -4,7 +4,6 @@ use crate::registers::*;
 use crate::security_context::SecurityContext;
 use log::trace;
 use snafu::{ensure, Snafu};
-//use std::ops::{Index, IndexMut};
 
 type Result<T, E = CpuError> = std::result::Result<T, E>;
 
@@ -44,6 +43,12 @@ impl RegisterCollection {
         rc
     }
 
+    /// Returns a reference to the value of the specific register.
+    ///
+    /// # Arguments
+    ///
+    /// * `register_id` - the ID of the register.
+    /// * `security_context` - the security context to be used when fulfilling this request.
     pub fn get_register_value_ref(
         &self,
         register_id: Registers,
@@ -62,6 +67,12 @@ impl RegisterCollection {
         }
     }
 
+    /// Returns (a copy of) the value of the specific register.
+    ///
+    /// # Arguments
+    ///
+    /// * `register_id` - the ID of the register.
+    /// * `security_context` - the security context to be used when fulfilling this request.
     pub fn get_register_value(
         &self,
         register_id: Registers,
@@ -80,6 +91,13 @@ impl RegisterCollection {
         }
     }
 
+    /// Sets the value of the specific register.
+    ///
+    /// # Arguments
+    ///
+    /// * `register_id` - the ID of the register.
+    /// * `value` - the value to which the register should be set.
+    /// * `security_context` - the security context to be used when fulfilling this request.
     pub fn set_register_value(
         &mut self,
         register_id: Registers,
@@ -99,6 +117,11 @@ impl RegisterCollection {
         }
     }
 
+    /// Returns a reference to the register with the ID field that matches the specified ID.
+    ///
+    /// # Arguments
+    ///
+    /// * `register_id` - the ID of the register.
     pub fn get_register_ref(&self, register_id: Registers) -> Result<&Register> {
         let reg = self.registers.iter().find(|r| r.register_id == register_id);
         if let Some(r) = reg {
@@ -108,6 +131,11 @@ impl RegisterCollection {
         }
     }
 
+    /// Returns a mutable reference to the register with the ID field that matches the specified ID.
+    ///
+    /// # Arguments
+    ///
+    /// * `register_id` - the ID of the register.
     pub fn get_register_mut_ref(&mut self, register_id: Registers) -> Result<&mut Register> {
         let reg = self
             .registers
@@ -120,6 +148,7 @@ impl RegisterCollection {
         }
     }
 
+    /// Load and initialize all of the registers required by the CPU.
     fn initialize_registers(&mut self) {
         let rw = RegisterAccess::R | RegisterAccess::W;
 

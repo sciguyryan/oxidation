@@ -10,7 +10,7 @@ repository = "https://github.com/sciguyryan/oxidation"
 homepage = "https://github.com/sciguyryan/oxidation"
 
 [dependencies]
-log = "0.4"
+log = "0.4.8"
 simple_logger = "1.6.0"
 bitflags = "1.2.1"
 snafu = "0.6.8"

@@ -12,7 +12,7 @@ pub enum RegisterError {
 
 bitflags! {
     #[derive(Default)]
-    pub struct RegisterAccess: i8 {
+    pub struct RegisterAccess: u8 {
         const N = 1 << 0;
         const R = 1 << 1;
         const W = 1 << 2;
