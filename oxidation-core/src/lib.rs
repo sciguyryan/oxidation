@@ -1,5 +1,4 @@
 #![crate_name = "oxidation_core"]
-#![feature(associated_type_bounds)]
 
 #[macro_use]
 extern crate bitflags;
