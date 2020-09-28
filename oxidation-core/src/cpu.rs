@@ -223,8 +223,7 @@ impl CPU {
             Instruction::HLT() => Ok(true),
         };
 
-        // In the event of an error we will instruct the CPU
-        // to halt.
+        // In the event of an error we will instruct the CPU to halt.
         self.is_halted = match halt {
             Ok(b) => b,
             Err(_) => true,

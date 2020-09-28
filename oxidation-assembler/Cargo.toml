@@ -1,16 +1,16 @@
 [package]
-name = "oxidation-console"
+name = "oxidation-assembler"
 version = "0.1.0"
 authors = ["Ryan Jones-Ward <sciguyryan@gmail.com>"]
 edition = "2018"
 readme = "README.md"
-description = "A CLI frontend for oxidation-core"
+description = "An assembler for Oxidation, a Rust virtual machine"
 license = "MIT"
 repository = "https://github.com/sciguyryan/oxidation"
 homepage = "https://github.com/sciguyryan/oxidation"
 
 [dependencies]
 oxidation-core = { path = "../oxidation-core" }
-oxidation-assembler = { path = "../oxidation-assembler" }
 log = "0.4"
 simple_logger = "1.9.0"
+binary_rw = "1.0.0"

@@ -1,2 +1,2 @@
 [workspace]
-members = ["oxidation-console", "oxidation-core"]
+members = ["oxidation-console", "oxidation-core", "oxidation-assembler"]
